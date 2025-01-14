@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buon San Valentino</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1; /* Rosa panna */
+            color: #d10000;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin: 10px;
+            font-size: 3rem;
+        }
+        canvas {
+            margin-top: 20px;
+            display: block;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <h1>BUON SAN VALENTINO <br> </h1>
+    <h1> AMORE!!<br></h1>
+    <h1> ❤️ </h1>
+    <canvas id="fractalTree"></canvas>
+    <script>
+        const canvas = document.getElementById('fractalTree');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight / 2;
+
+        let angleModifier = 0;
+        let increasing = true;
+
+        function drawHeart(x, y, size) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.moveTo(0, -size / 2);
+            ctx.bezierCurveTo(size / 2, -size, size, size / 3, 0, size);
+            ctx.bezierCurveTo(-size, size / 3, -size / 2, -size, 0, -size / 2);
+            ctx.closePath();
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawBranch(x, y, length, angle, depth, branchWidth) {
+            if (depth === 0) {
+                drawHeart(x, y, 10 + angleModifier / 2); // Draw a heart at the end of the branch
+                return;
+            }
+
+            ctx.beginPath();
+            ctx.save();
+
+            // Set branch styles
+            ctx.strokeStyle = 'green';
+            ctx.lineWidth = branchWidth;
+            ctx.translate(x, y);
+            ctx.rotate(angle * Math.PI / 180);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, -length);
+            ctx.stroke();
+
+            const newX = 0;
+            const newY = -length;
+
+            // Recursive calls for left and right branches
+            drawBranch(newX, newY, length * 0.7, angle - 20 + angleModifier, depth - 1, branchWidth * 0.7);
+            drawBranch(newX, newY, length * 0.7, angle + 20 - angleModifier, depth - 1, branchWidth * 0.7);
+
+            ctx.restore();
+        }
+
+        function drawFractal() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const trunkLength = 120;
+            const startX = canvas.width / 2;
+            const startY = canvas.height;
+            const depth = 10;
+            const branchWidth = 10;
+
+            drawBranch(startX, startY, trunkLength, 0, depth, branchWidth);
+        }
+
+        function animate() {
+            drawFractal();
+
+            if (increasing) {
+                angleModifier += 0.5;
+                if (angleModifier > 20) increasing = false;
+            } else {
+                angleModifier -= 0.5;
+                if (angleModifier < -20) increasing = true;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Redraw tree on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight / 2;
+            drawFractal();
+        });
+    </script>
+</body>
+</html>

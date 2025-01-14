@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            background-color: #ffe4e1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .images {
+            display: flex;
+            gap: 20px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 200px;
+            height: 250px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-button {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .image-button:hover {
+            transform: scale(1.1);
+        }
+
+        .image-description {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .pulse-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 20px 60px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+
+        .arrow-container {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            text-align: center;
+            animation: pulse 1.5s infinite;
+            margin-right: 40px;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .arrow-text {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .wrong-choice {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function handleWrongChoice(button) {
+            const container = button.parentElement;
+            container.innerHTML = '<div class="wrong-choice">SCELTA ERRATA☹️</div>';
+        }
+    </script>
+</head>
+<body>
+    <h2>Visto che ci siamo già messi d'accordo per il 17.02.2025</h2>
+    <h2>mi verrebbe da chiederti, cosa ti piacerebbe fare?</h2>
+    <div class="images">
+        <div class="image-container">
+            <img src="pic.png" class="image-button" onclick="handleWrongChoice(this)" alt="Button 1">
+            <div class="image-description">Pic Nic con delle portate <br> fatte interamente da me </div>
+        </div>
+        <div class="image-container">
+            <img src="cucinare.png" class="image-button" onclick="handleWrongChoice(this)" alt="Button 2">
+            <div class="image-description">Cucinare qualcosa <br>a cena a casa</div>
+        </div>
+        <div class="image-container">
+            <img src="sushi1.png" class="image-button" onclick="handleWrongChoice(this)" alt="Button 3">
+            <div class="image-description">Sushi il pranzo <br> o la sera</div>
+        </div>
+        <div class="image-container">
+            <img src="ristorante.png" class="image-button" onclick="handleWrongChoice(this)" alt="Button 4">
+            <div class="image-description">Un bel ristorante <br> scelto da te </div>
+        </div>
+    </div>
+    <div class="arrow-container">
+        <div class="arrow">⬇</div>
+        <div class="arrow-text">TI CONSIGLIO</div>
+    </div>
+    <button class="pulse-button" onclick="location.href='albero.html'">Sceglie Marius</button>
+</body>
+</html>
